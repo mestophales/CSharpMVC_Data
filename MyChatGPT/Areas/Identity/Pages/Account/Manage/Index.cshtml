@@ -1,0 +1,150 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Profile";
+    ViewData["ActivePage"] = ManageNavPages.Index;
+}
+
+<h3>@ViewData["Title"]</h3>
+<partial name="_StatusMessage" for="StatusMessage" />
+
+
+
+
+
+	<div class="tabs">
+		<ul class="nav nav-tabs tabs-primary">
+			<li class="nav-item active">
+				<button class="nav-link" data-bs-target="#about" data-bs-toggle="tab">About</button>
+			</li>
+			<li class="nav-item">
+				<button class="nav-link" data-bs-target="#avatar" data-bs-toggle="tab">Avatar</button>
+			</li>
+		<li class="nav-item">
+			<button class="nav-link" data-bs-target="#username" data-bs-toggle="tab">Username</button>
+		</li>
+		<li class="nav-item">
+			<button class="nav-link" data-bs-target="#phone" data-bs-toggle="tab">Phone Number</button>
+		</li>
+		<li class="nav-item">
+			<button class="nav-link" data-bs-target="#demographics" data-bs-toggle="tab">Demographics</button>
+		</li>
+		</ul>
+		<div class="tab-content">
+			<div id="about" class="tab-pane active">
+
+					
+
+			@if (Model.DemographicsViewModel != null)
+			{
+				<h4 class="mb-3 font-weight-semibold text-dark">About You</h4>
+				<p>Street: @Model.DemographicsViewModel.StreetAddress</p>
+				<p>City: @Model.DemographicsViewModel.City</p>
+			}
+			else
+			{
+				<h4>Demographic information is not available.</h4>
+			}
+
+
+			</div>
+
+
+
+			<div id="avatar" class="tab-pane">
+
+	
+				<h4>Update Avatar</h4>
+					<div class="row">
+
+							<form id="profile-form" method="post" enctype="multipart/form-data">
+								<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+								<div class="form-group col">
+									<input type="file" class="w-100 form-control" id="AvatarFile" name="AvatarFile" />
+								</div>
+								
+						<br /><button id="update-profile-button" type="submit" class="btn btn-primary modal-confirm">Save</button>
+							</form>
+					</div>
+
+
+			</div>
+
+		    <div id="username" class="tab-pane">
+			<h4>Update Screen Name</h4>
+				<div class="row">
+
+					<form id="profile-form-username" method="post">
+						<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+					<div class="form-group col">
+						<input asp-for="Input.ScreenName" class="form-control"/>
+						<span asp-validation-for="Input.ScreenName" class="text-danger"></span>
+						</div>
+
+						<br /><button id="update-profile-username-button" type="submit" class="btn btn-primary modal-confirm">Save</button>
+					</form>
+				</div>
+			</div>
+
+		<div id="phone" class="tab-pane">
+
+
+			<h4>Update Phone Number</h4>
+			<div class="row">
+
+				<form id="profile-phone-form" method="post" enctype="multipart/form-data">
+					<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+					<div class="form-group col">
+
+						<input asp-for="Input.PhoneNumber" class="form-control" />
+
+						<span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+					</div>
+					<br /><button id="update-profile-phone-button" type="submit" class="btn btn-primary modal-confirm">Save</button>
+				</form>
+			</div>
+
+
+		</div>
+		<div id="demographics" class="tab-pane">
+
+
+			<h4>Update Demographics</h4>
+			<div class="row">
+
+				<form id="profile-demographics-form" method="post">
+					<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+					<div class="form-group col">
+
+						<div class="form-group">
+							<label asp-for="Input.StreetAddress"></label>
+							<input asp-for="Input.StreetAddress" class="form-control" />
+						</div>
+
+						<div class="form-group">
+							<label asp-for="Input.City"></label>
+							<input asp-for="Input.City" class="form-control" />
+						</div>
+
+					</div>
+					<br /><button id="update-profile-demographics" type="submit" class="btn btn-primary modal-confirm">Save</button>
+				</form>
+			</div>
+
+
+		</div>
+		</div>
+	</div>
+
+
+
+
+
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
